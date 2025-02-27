@@ -2,10 +2,10 @@ image: php:8.2
 
 stages:
   - test
+  - build
 
 variables:
   DATABASE_URL: "sqlite:///:memory:"
-  SYMFONY_DEPRECATIONS_HELPER: "max[self]=0"
 
 before_script:
   - apt-get update && apt-get install -y unzip git libsqlite3-dev
@@ -13,7 +13,30 @@ before_script:
   - composer install --no-interaction --no-progress --prefer-dist
   - php bin/console cache:clear
 
+# Job de test simple, valable pour toutes les branches
 test:
   stage: test
   script:
+    - echo "Exécution des tests"
     - vendor/bin/phpunit --testdox
+
+# Job spécifique à la branche de développement
+develop:
+  stage: test
+  script:
+    - echo "Vous êtes dans la branche de développement !"
+  only:
+    - develop  # Ce job ne s'exécute que sur la branche 'develop'
+
+# Job spécifique à la branche de production, créant un artifact (fichier zip)
+build_prod:
+  stage: build
+  script:
+    - echo "Création de l'archive pour la branche de production"
+    - zip -r my_project_artifact.zip .  # Crée un fichier zip contenant tous les fichiers du projet
+  only:
+    - main  # Ce job ne s'exécute que sur la branche 'main'
+  artifacts:
+    paths:
+      - my_project_artifact.zip  # Indique que l'artifact doit être disponible après l'exécution du job
+    expire_in: 1 week  # L'artifact sera disponible pendant 1 semaine
