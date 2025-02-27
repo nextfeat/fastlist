@@ -35,7 +35,7 @@ build_prod:
     - echo "Création de l'archive pour la branche de production"
     - zip -r my_project_artifact.zip .  # Crée l'archive de tout le répertoire
   only:
-    - prod  # Ce job ne s'exécute que sur la branche 'prod'
+    - main  # Ce job ne s'exécute que sur la branche 'prod'
   artifacts:
     paths:
       - my_project_artifact.zip  # Spécifie le fichier à garder en artifact
