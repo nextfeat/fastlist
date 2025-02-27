@@ -1,0 +1,19 @@
+image: php:8.2
+
+stages:
+  - test
+
+variables:
+  DATABASE_URL: "sqlite:///:memory:"
+  SYMFONY_DEPRECATIONS_HELPER: "max[self]=0"
+
+before_script:
+  - apt-get update && apt-get install -y unzip git libsqlite3-dev
+  - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+  - composer install --no-interaction --no-progress --prefer-dist
+  - php bin/console cache:clear
+
+test:
+  stage: test
+  script:
+    - vendor/bin/phpunit --testdox
