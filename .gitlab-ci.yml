@@ -8,7 +8,7 @@ variables:
   DATABASE_URL: "sqlite:///:memory:"
 
 before_script:
-  - apt-get update && apt-get install -y unzip git libsqlite3-dev
+  - apt-get update && apt-get install -y unzip git libsqlite3-dev zip  
   - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
   - composer install --no-interaction --no-progress --prefer-dist
   - php bin/console cache:clear
@@ -33,10 +33,3 @@ build_prod:
   stage: build
   script:
     - echo "Création de l'archive pour la branche de production"
-    - zip -r my_project_artifact.zip .  # Crée un fichier zip contenant tous les fichiers du projet
-  only:
-    - main  # Ce job ne s'exécute que sur la branche 'main'
-  artifacts:
-    paths:
-      - my_project_artifact.zip  # Indique que l'artifact doit être disponible après l'exécution du job
-    expire_in: 1 week  # L'artifact sera disponible pendant 1 semaine
