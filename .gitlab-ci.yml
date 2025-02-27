@@ -20,14 +20,6 @@ test:
     - echo "Exécution des tests"
     - vendor/bin/phpunit --testdox
 
-# Job spécifique à la branche de développement
-develop:
-  stage: test
-  script:
-    - echo "Vous êtes dans la branche de développement !"
-  only:
-    - develop  # Ce job ne s'exécute que sur la branche 'develop'
-
 # Job spécifique à la branche de production, créant un artifact (fichier zip)
 build_prod:
   stage: build
