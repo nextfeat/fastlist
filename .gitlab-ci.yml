@@ -30,5 +30,5 @@ build_prod:
     - main  # Ce job ne s'exécute que sur la branche 'prod'
   artifacts:
     paths:
-      - my_project_artifact.zip  # Spécifie le fichier à garder en artifact
+      - my_project_artifact.zip  # Spécifie le fichier à garder un artifact
     expire_in: 1 week  # Optionnel : spécifie la durée de vie de l'artifact
