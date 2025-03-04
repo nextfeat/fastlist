@@ -20,7 +20,7 @@ test:
     - echo "Exécution des tests"
     - vendor/bin/phpunit --testdox
 
-# Job spécifique à la branche de production, créant un artifact (fichier zip)
+# Job spécifique à la branche de production, créant un artifact (fichier zip)#
 build_prod:
   stage: build
   script:
