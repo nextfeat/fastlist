@@ -3,7 +3,7 @@ name: CI_fastlist
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
 
 jobs:
