@@ -36,6 +36,9 @@ jobs:
           extensions: mbstring, intl, pdo_pgsql
           coverage: none
 
+      - name: Use test environment
+        run: cp .env.test .env
+
       - name: Install dependencies
         run: composer install --no-interaction --prefer-dist --no-progress
 
@@ -44,9 +47,6 @@ jobs:
           until pg_isready -h localhost -U symfony; do
             sleep 1
           done
-
-      - name: Use test environment
-        run: cp .env.test .env
 
       - name: Prepare database
         env:
