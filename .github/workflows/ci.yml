@@ -45,6 +45,9 @@ jobs:
             sleep 1
           done
 
+      - name: Use test environment
+        run: cp .env.test .env
+
       - name: Prepare database
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
