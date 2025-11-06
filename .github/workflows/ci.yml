@@ -36,8 +36,10 @@ jobs:
           extensions: mbstring, intl, pdo_pgsql
           coverage: none
 
-      - name: Use test environment
-        run: cp .env.test .env
+      - name: Create env for CI
+        run: |
+          cp .env.test .env
+          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
 
       - name: Install dependencies
         run: composer install --no-interaction --prefer-dist --no-progress
